@@ -1,9 +1,14 @@
 var selected_month = 1;
 
+var toggle_dict = { // for footer toggle
+    'fixed':'static',
+    'static':'fixed',
+}
 
-function closeFooter() {
+
+function toggleFooter() {
     footer = document.getElementById('footer');
-    footer.style.display = 'none';
+    footer.style.position = toggle_dict[window.getComputedStyle(footer).position];
 }
 
 function selectMonth(month_num) {

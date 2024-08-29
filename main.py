@@ -9,18 +9,21 @@ app.secret_key = os.urandom(16)
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
-    if request.method == 'POST' and 'cal_text' in request.form and 'year' in request.form:
-        calendar = calendars.Calendar(request.form['cal_text'], request.form['year'])
-        if calendar.flagged_lines:
-            flash(f'Error processing line(s): {", ".join([str(x) for x in calendar.flagged_lines])}')
-        
-        year_tables = calendar.year_tables()
-        month_names = ''
-        month_tables = ''
-        for month in range(1,13):
-            month_names += f'<span name={month}>' + year_tables[month]['name'] + ' ' + str(calendar.year) + '</span>'
-            month_tables += f'<div name={month}>' + year_tables[month]['caltable'] + '</div>'
-        return render_template('home.html', processed_text = calendar.processed_text, year = calendar.year, month_names = month_names, month_tables = month_tables)
+    if request.method == 'POST':
+        if 'cal_text' in request.form and 'year' in request.form and request.form['year'].isnumeric() and (int(request.form['year']) > 1900):
+            calendar = calendars.Calendar(request.form['cal_text'], request.form['year'])
+            if calendar.flagged_lines:
+                flash(f'Error processing line(s): {", ".join([str(x) for x in calendar.flagged_lines])}')
+            
+            year_tables = calendar.year_tables()
+            month_names = ''
+            month_tables = ''
+            for month in range(1,13):
+                month_names += f'<span name={month}>' + year_tables[month]['name'] + ' ' + str(calendar.year) + '</span>'
+                month_tables += f'<div name={month}>' + year_tables[month]['caltable'] + '</div>'
+            return render_template('home.html', processed_text = calendar.processed_text, year = calendar.year, month_names = month_names, month_tables = month_tables)
+        else:
+            flash('Your request is missing some information. Please try again. (reminder: year must be a number greater than 1900)')
     return render_template('home.html')
 
 

@@ -27,7 +27,7 @@ class Calendar:
                 event_details = {'month': None, 'day': None, 'description': None}
                 running_description = ''
                 for word in stripped_line.split(' '):
-                    if not (event_details['month'] != None != event_details['day']):
+                    if not (event_details['month'] and event_details['day']):
                         if not word.lower() in WORDS_TO_IGNORE:
                             if word.isnumeric() and int(word) <= 31:
                                 event_details['day'] = int(word)
@@ -35,10 +35,11 @@ class Calendar:
                                 event_details['month'] = self.month_lookup(word)
                     else:
                         running_description += word + ' '
-
+                
+                running_description = running_description.replace('\r', '') # delete invisible character
                 event_details['description'] = running_description
-
-                if event_details['month'] != None != event_details['day']:
+                print([running_description])
+                if event_details['month'] and event_details['day'] and running_description and (running_description.count(' ') != len(running_description)): # must have all 3. description cannot be None OR empty str
                     event_date = datetime(self.year, event_details['month'], event_details['day'])
                     event_obj = Event(event_date, event_details['description'])
                     self.add_event(event_obj)
@@ -106,10 +107,3 @@ class Event:
     def __init__(self, date, description):
         self.date = date
         self.description = description
-
-
-if __name__ == '__main__':
-    file = open('sample_calendar.txt')
-    rawtext = file.read()
-    file.close()
-    Calendar(rawtext, 2021)

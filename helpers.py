@@ -17,3 +17,11 @@ def remove_bracketed_words(txt, open_bracket='<', close_bracket = '>'):
 
 def add_weekday(current_weekday):
     return (current_weekday + 1) % 7
+
+
+def is_num(input_string): # used only in the version on Glitch, where isnumeric is not processed properly
+  try:
+    int(input_string)
+    return True
+  except:
+    return False
