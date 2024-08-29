@@ -21,8 +21,8 @@ class Calendar:
         self.flagged_lines = []
         line_index = 1
         for line in raw_text.split('\n'):
-            stripped_line = helpers.remove_bracketed_words(line)
-            if stripped_line.count(' ') != (len(stripped_line) -1) : # if not an empty line -- the extra one char includes the newline char
+            stripped_line = helpers.remove_bracketed_words(line).lstrip() # strip leading spaces to prevent buildup
+            if stripped_line.count(' ') != len(stripped_line): # if not an empty line
                 self.processed_text += f'<{line_index}> ' + stripped_line + '\n'
                 event_details = {'month': None, 'day': None, 'description': None}
                 running_description = ''
@@ -46,6 +46,7 @@ class Calendar:
                     self.flagged_lines.append(line_index)
                 
                 line_index += 1
+        self.processed_text = self.processed_text[:-1] # remove the terminal newline
 
 
     def month_lookup(self, word):
