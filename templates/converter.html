@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Text Converter{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h4>Remove Bracketed Line Numbers from Text</h4>
+    <form action="#" method="POST">
+        <div class="form-group">
+            <label for="txt">Calendar Text:</label>
+            <textarea class="form-control" id="txt" placeholder="Text to convert" name="text">{{txt}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-warning">Submit</button>
+    </form>
+</div>
+{% endblock %}

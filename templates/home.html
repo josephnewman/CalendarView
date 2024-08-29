@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col" style="text-align: right;">
+            <button class="btn btn-warning" onclick="selectPrev()">←</button>
+        </div>
+        <div class="col" style="text-align: center;">
+            <h4>{{ month_names | safe }}</h4>
+        </div>
+        <div class="col">
+            <button class="btn btn-warning" onclick="selectNext()">→</button>
+        </div>
+    <div class="row">
+      <div class="col" id="CALENDAR_FRAME">
+        {{ month_tables | safe }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" id="INPUT_AREA">
+        <h4>Input Area</h4>
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="year">Year</label>
+                <input name="year" class="form-control" id="year" placeholder="Year" value="{{year}}">
+            </div>
+            <div class="form-group">
+              <label for="cal_text">Calendar Text:</label>
+              <textarea class="form-control" id="cal_text" placeholder="Calendar text" name="cal_text">{{processed_text}}</textarea>
+            </div>
+            <button type="submit" class="btn btn-warning">Submit</button>
+          </form>
+      </div>
+      <div class="col">
+        <div id="ERRORS_AREA">
+          <h4>Errors and Messages</h4>
+          {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                  {% for msg in messages %}
+                      <div class="alert alert-warning" role="alert">
+                          {{msg}}
+                      </div>
+                  {% endfor %}
+              {% else %}
+                  <div class="alert alert-success" role="alert">
+                      Nothing to show :)
+                  </div>
+              {% endif %}
+          {% endwith %}
+        </div>
+        <div>
+          <h4>Rules for Input</h4>
+          <ol>
+            <li>Include the month and day <u>before</u> the event name/description. The day of the week is not necessary but can be included.</li>
+            <li>The month can be given by its full name (e.g. "August") or by the first 3 letters of that name (e.g. "Aug"). Month names are <u>not</u> case-sensitive.</li>
+            <li>The day of the month must be given as a number written in numeric characters. The <u>number must be separated from all other symbols by a space</u>. For example, "July 23 ..." would be accepted while "July 23<b>,</b> ..." would not. </li>
+            <li>The remainder of the line after the month and date are determined is designated as the event name/description.</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script>
+    selectMonth(1)
+</script>
+{% endblock %}

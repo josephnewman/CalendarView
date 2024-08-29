@@ -1,0 +1,51 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.header, .footer {
+    background-color:rgb(180, 29, 29);
+    width:100%;
+    color:white;
+    text-align:center;
+    padding:0.5%;
+}
+
+.header {
+    font-style:oblique;
+}
+
+.footer {
+    position:fixed;
+    bottom:0px;
+    left:0px;
+}
+
+.system-button {
+    background-color: rgb(214, 144, 144);
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color:rgb(214, 144, 144);
+}
+
+table {
+    width: 100%;
+}
+
+td, th {
+    vertical-align: top;
+    border : black 1px solid;
+    width: 14%;
+}
+
+th {
+    font-weight:bold;
+    text-align: center;
+    border-bottom: 3px black solid;
+}

@@ -1,0 +1,15 @@
+sunday
+monday
+tuesday
+wednesday
+thursday
+friday
+saturday
+sun
+mon
+tues
+wed
+thurs
+fri
+sat
+shabbat
