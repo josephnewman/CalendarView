@@ -39,7 +39,6 @@ class Calendar:
                 event_details['description'] = running_description
 
                 if event_details['month'] != None != event_details['day']:
-                    print(event_details['day'])
                     event_date = datetime(self.year, event_details['month'], event_details['day'])
                     event_obj = Event(event_date, event_details['description'])
                     self.add_event(event_obj)
